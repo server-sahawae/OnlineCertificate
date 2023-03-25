@@ -1,0 +1,44 @@
+{
+  "event": [
+    {
+      "id": "898cbc53-874a-4aea-b4b0-c6d598ef69f8",
+      "name": "Narasi dan aksi gerakan kolaboratif bem di Indramayu",
+      "location": "Webinar via Zoom",
+      "time": "2023-04-16T13:30:00.000Z",
+      "description": "",
+      "CompanyId": "ce9dda0a-720e-11ed-b8fb-f07959612163"
+    },
+    {
+      "id": "6911416f-c4b8-4306-a629-6c6c147d2f14",
+      "name": "Manajemen dan Kepemimpinan organisasi bem era digital",
+      "location": "Webinar via Zoom",
+      "time": "2023-04-09T13:30:00.000Z",
+      "description": "",
+      "CompanyId": "ce9dda0a-720e-11ed-b8fb-f07959612163"
+    },
+    {
+      "id": "b9dc5d66-3452-4374-bcac-f971b7a3e8be",
+      "name": "Membangun Jiwa Kepemimpinan Mahasiswa Gen-Z",
+      "location": "Webinar via Zoom",
+      "time": "2023-04-02T13:30:00.000Z",
+      "description": "",
+      "CompanyId": "ce9dda0a-720e-11ed-b8fb-f07959612163"
+    },
+    {
+      "id": "d8524011-50ea-4e4c-adef-3a28d184c1f4",
+      "name": "Leadership in Islamic Perspective",
+      "location": "Webinar via Zoom",
+      "time": "2023-03-26T13:30:00.000Z",
+      "description": "",
+      "CompanyId": "ce9dda0a-720e-11ed-b8fb-f07959612163"
+    },
+    {
+      "id": "9e7a51bf-9c17-4ed2-a72b-dbaf0715a679",
+      "name": "Kuliah Umum Bimbingan Pembentukan LPKSM dan Bimbingan Advokasi Badan Perlindungan Konsumen Nasional Republik Indonesia",
+      "location": "STAI Sayid Sabiq Indramayu",
+      "time": "2023-03-16T02:00:00.000Z",
+      "description": "",
+      "CompanyId": "ce9dda0a-720e-11ed-b8fb-f07959612163"
+    }
+  ]
+}
