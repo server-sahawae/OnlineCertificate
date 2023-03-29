@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Logo.hasMany(models.CertificateTemplate);
+      Logo.hasMany(models.Signature);
     }
   }
   Logo.init(

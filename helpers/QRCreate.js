@@ -4,13 +4,9 @@ const { createCanvas, loadImage } = require("canvas");
 const { Logo } = require("../models");
 const sharp = require("sharp");
 
-async function getPngBufferFromWebp(dataType, data) {
+async function getPngBufferFromWebp(data) {
   try {
-    console.log(dataType);
-    dataType = dataType.split("/")[1];
-    if (dataType == "webp") {
-      return await sharp(data).toFormat("png").toBuffer();
-    } else return data;
+    return await sharp(data).toFormat("png").toBuffer();
   } catch (error) {
     throw error;
   }
@@ -26,10 +22,7 @@ async function createQr(baseUrl, id, LogoId) {
 
   const width = 500;
   const canvas = createCanvas(width, width);
-  console.log(dataLogo.fileType);
-  const stamp = await loadImage(
-    await getPngBufferFromWebp(dataLogo.fileType, dataLogo.file)
-  );
+  const stamp = await loadImage(await getPngBufferFromWebp(dataLogo.file));
   // console.log(stamp.);
   const backgroundCTX = canvas.getContext("2d");
   console.log(stamp.width, stamp.height);

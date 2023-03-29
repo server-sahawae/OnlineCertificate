@@ -1,36 +1,35 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Event extends Model {
+  class Signature extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Event.hasMany(models.Certificate);
       // define association here
+      Signature.belongsTo(models.CertificateTemplate);
+      Signature.belongsTo(models.Logo);
     }
   }
-  Event.init(
+  Signature.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      QRx: DataTypes.INTEGER,
+      QRy: DataTypes.INTEGER,
       name: DataTypes.STRING,
-      location: DataTypes.STRING,
-      time: DataTypes.DATE,
-      duration: DataTypes.FLOAT,
-      description: DataTypes.STRING,
-      CompanyId: DataTypes.UUID,
-      image: DataTypes.BLOB("medium"),
+      CertificateTemplateId: DataTypes.UUID,
+      LogoId: DataTypes.UUID,
     },
     {
       sequelize,
-      modelName: "Event",
+      modelName: "Signature",
     }
   );
-  return Event;
+  return Signature;
 };

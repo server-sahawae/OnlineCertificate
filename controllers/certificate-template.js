@@ -1,4 +1,5 @@
 const csvtojsonV2 = require("csvtojson/v2");
+const sharp = require("sharp");
 const { NOT_IMAGE } = require("../constants/ErrorKeys");
 const { CertificateTemplate } = require("../models");
 // const sharp = require("sharp");
@@ -21,14 +22,16 @@ module.exports = class Controller {
         md5,
         mv,
       } = req.files.image;
-      console.log(data);
+      console.log(EventId);
       // const dataImage = await sharp(data).toFormat("webp").toBuffer();
       if (!mimetype.startsWith("image")) throw { name: NOT_IMAGE };
+      const fileData = await sharp(Buffer.from(data))
+        .toFormat("webp")
+        .toBuffer();
       console.log("=========================================================");
       const dataCreate = await CertificateTemplate.create({
         EventId,
-        fileType: mimetype,
-        file: data,
+        file: fileData,
       });
       res.status(200).json(dataCreate.id);
     } catch (error) {

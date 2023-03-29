@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Logo } = require("../models");
+const { Logo, CertificateTemplate, Event } = require("../models");
 const fs = require("fs");
 const sharp = require("sharp");
 module.exports = class Controller {
@@ -25,10 +25,12 @@ module.exports = class Controller {
 
   static async getAllLogoInList(req, res, next) {
     try {
-      const data = await Logo.findAll();
-      fs.writeFileSync("./data/logo.json", JSON.stringify(data, null, 2));
-      res.status(200).json("done");
+      const data = await Event.findAll();
+      // console.log(data);
+      fs.writeFileSync("./data/event.json", JSON.stringify(data, null, 2));
+      res.status(200).json(data);
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

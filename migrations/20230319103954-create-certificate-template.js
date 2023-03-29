@@ -8,28 +8,26 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
       },
-      namePosition: {
-        type: Sequelize.INTEGER,
-      },
-      statusPosition: {
-        type: Sequelize.INTEGER,
-      },
-      QRx: {
-        type: Sequelize.INTEGER,
-      },
-      QRy: {
-        type: Sequelize.INTEGER,
-      },
-      // fileType: {
-      //   type: Sequelize.STRING,
-      //   allowNull: false,
-      // },
       file: {
         type: Sequelize.BLOB("medium"),
         allowNull: false,
       },
+      namePosition: {
+        type: Sequelize.FLOAT,
+      },
+      statusPosition: {
+        type: Sequelize.FLOAT,
+      },
+
+      QRx: {
+        type: Sequelize.FLOAT,
+      },
+      QRy: {
+        type: Sequelize.FLOAT,
+      },
       signName: { type: Sequelize.STRING },
       LogoId: { type: Sequelize.UUID, references: { model: "Logos" } },
+
       EventId: {
         type: Sequelize.UUID,
         allowNull: false,

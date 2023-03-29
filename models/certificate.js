@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Certificate.belongsTo(models.Event);
+      Certificate.belongsTo(models.CertificateTemplate, {
+        as: "Signature",
+        foreignKey: "CertificateTemplateId",
+      });
       Certificate.belongsTo(models.CertificateTemplate);
     }
   }

@@ -19,6 +19,10 @@ module.exports = {
       time: {
         type: Sequelize.DATE,
       },
+      duration: {
+        type: Sequelize.FLOAT,
+        defaultValue: 2,
+      },
       description: {
         type: Sequelize.STRING,
       },
@@ -26,6 +30,9 @@ module.exports = {
       CompanyId: {
         type: Sequelize.UUID,
         allowNull: false,
+      },
+      image: {
+        type: Sequelize.BLOB("medium"),
       },
       createdAt: {
         allowNull: false,

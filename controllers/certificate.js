@@ -1,7 +1,7 @@
 const csvtojsonV2 = require("csvtojson/v2");
 const { DATA_NOT_FOUND } = require("../constants/ErrorKeys");
 const createCertificate = require("../helpers/CreateCertificate");
-const { Certificate, Event, CertificateTemplate } = require("../models");
+const { Certificate, Event, CertificateTemplate, Logo } = require("../models");
 const sharp = require("sharp");
 
 module.exports = class Controller {
@@ -70,13 +70,31 @@ module.exports = class Controller {
           },
           { where: { id } }
         );
+        res.setHeader(
+          "Content-Disposition",
+          "attachment; filename=" +
+            status.split(" ").join("_") +
+            "-" +
+            name.split(" ").join("_") +
+            ".png"
+        );
         res
           .type("image/png")
           .send(await sharp(certificate.data).toFormat("png").toBuffer());
-      } else
+      } else {
+        console.log(name);
+        res.setHeader(
+          "Content-Disposition",
+          "attachment; filename=" +
+            status.split(" ").join("_") +
+            "-" +
+            name.split(" ").join("_") +
+            ".png"
+        );
         res
           .type("image/png")
           .send(await sharp(file).toFormat("png").toBuffer());
+      }
     } catch (error) {
       console.log(error);
       next(error);
@@ -88,6 +106,44 @@ module.exports = class Controller {
       const { EventId } = req.params;
       const result = await Certificate.findAll({ where: { EventId } });
       res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getCertificateVerification(req, res, next) {
+    try {
+      const { CertificateId } = req.params;
+      const data = await Certificate.findOne({
+        where: { id: CertificateId },
+        attributes: ["id", "name", "status"],
+        include: [
+          {
+            model: Event,
+            attributes: [
+              "name",
+              "location",
+              "description",
+              "time",
+              "duration",
+              ["updatedAt", "signedAt"],
+            ],
+          },
+          {
+            model: CertificateTemplate,
+            as: "Signature",
+            attributes: [["signName", "name"]],
+            include: [
+              {
+                model: Logo,
+                as: "Company",
+                attributes: ["name"],
+              },
+            ],
+          },
+        ],
+      });
+      res.status(200).json(data);
     } catch (error) {
       next(error);
     }

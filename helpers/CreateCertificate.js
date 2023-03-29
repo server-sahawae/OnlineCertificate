@@ -31,7 +31,12 @@ async function createCertificate({
       : statusPosition;
     console.log(Object.keys(dataCertificateTemplate?.dataValues));
     // console.log(dataCertificateTemplate);
-    const templateImage = await loadImage(dataCertificateTemplate?.file);
+    const imageCertificateTemplate = await sharp(
+      Buffer.from(dataCertificateTemplate?.file)
+    )
+      .toFormat("png")
+      .toBuffer();
+    const templateImage = await loadImage(imageCertificateTemplate);
     const canvas = createCanvas(2970, 2100);
     const certificate = canvas.getContext("2d");
     certificate.drawImage(templateImage, 0, 0, 2970, 2100);

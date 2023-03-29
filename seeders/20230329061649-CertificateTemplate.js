@@ -3,26 +3,22 @@ const fs = require("fs");
 const sharp = require("sharp");
 module.exports = {
   async up(queryInterface, Sequelize) {
-    let result = fs.readFileSync("./data/event.json", "utf-8");
+    let result = fs.readFileSync("./data/CertificateTemplate.json", "utf-8");
     result = await JSON.parse(result);
     const data = await Promise.all(
       result.map(async (el) => {
-        console.log(el.name);
+        console.log(Object.keys(el));
         el.createdAt = new Date();
         el.updatedAt = new Date();
-        if (el.image) {
-          el.image = await sharp(Buffer.from(el.image))
-            .toFormat("webp")
-            .toBuffer();
-        }
+        el.file = await sharp(Buffer.from(el.file)).toFormat("webp").toBuffer();
         return el;
       })
     );
 
-    await queryInterface.bulkInsert("Events", data);
+    await queryInterface.bulkInsert("CertificateTemplates", data);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Events");
+    await queryInterface.bulkDelete("CertificateTemplates");
   },
 };

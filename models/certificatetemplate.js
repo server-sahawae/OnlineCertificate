@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       CertificateTemplate.hasMany(models.Certificate);
+      CertificateTemplate.hasMany(models.Signature);
+      CertificateTemplate.belongsTo(models.Logo, {
+        as: "Company",
+        foreignKey: "LogoId",
+      });
       CertificateTemplate.belongsTo(models.Logo);
     }
   }
@@ -22,10 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       // fileType: DataTypes.STRING,
       file: DataTypes.BLOB("medium"),
-      namePosition: DataTypes.INTEGER,
-      statusPosition: DataTypes.INTEGER,
-      QRx: DataTypes.INTEGER,
-      QRy: DataTypes.INTEGER,
+      namePosition: DataTypes.FLOAT,
+      statusPosition: DataTypes.FLOAT,
+      QRx: DataTypes.FLOAT,
+      QRy: DataTypes.FLOAT,
       EventId: DataTypes.UUID,
       LogoId: DataTypes.UUID,
       signName: DataTypes.STRING,
