@@ -20,6 +20,14 @@ module.exports = class Controller {
       console.log(req.params);
       const result = await Event.findAll({
         where: { CompanyId },
+        attributes: [
+          "id",
+          "name",
+          "location",
+          "time",
+          "description",
+          "duration",
+        ],
         order: [["time", "DESC"]],
       });
       res.status(200).json(result);
