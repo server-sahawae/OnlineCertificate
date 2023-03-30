@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app",
+    "start": "node app",
+    "seqInit": "npx sequelize db:migrate && npx sequelize db:seed:all",
+    "seqMigrate": "npx sequelize db:migrate",
+    "seqSeed": "npx sequelize db:seed:all",
+    "seqUndoMigrate": "npx sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "",

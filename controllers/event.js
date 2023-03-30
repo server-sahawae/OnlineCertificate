@@ -17,9 +17,21 @@ module.exports = class Controller {
   static async getEventByCompanyId(req, res, next) {
     try {
       const { CompanyId } = req.params;
+      const { search } = req.query;
+      console.log(search);
       console.log(req.params);
+      const options = search
+        ? {
+            [Op.or]: [
+              { name: { [Op.substring]: search } },
+              { location: { [Op.substring]: search } },
+              { description: { [Op.substring]: search } },
+            ],
+          }
+        : {};
+
       const result = await Event.findAll({
-        where: { CompanyId },
+        where: { CompanyId, ...options },
         attributes: [
           "id",
           "name",
@@ -77,7 +89,7 @@ module.exports = class Controller {
         where: { id: EventId },
         attributes: ["image"],
       });
-      res.type("image/png").send(await sharp(image).toFormat("png").toBuffer());
+      res.type("image/webp").send(image);
     } catch (error) {
       next(error);
     }
