@@ -29,7 +29,7 @@ async function createCertificate({
     statusPosition = dataCertificateTemplate?.statusPosition
       ? dataCertificateTemplate?.statusPosition
       : statusPosition;
-    console.log(Object.keys(dataCertificateTemplate?.dataValues));
+    // console.log(Object.keys(dataCertificateTemplate?.dataValues));
     // console.log(dataCertificateTemplate);
     const imageCertificateTemplate = await sharp(
       Buffer.from(dataCertificateTemplate?.file)
@@ -61,7 +61,7 @@ async function createCertificate({
       canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, ""),
       "base64"
     );
-    console.log(await loadImage(canvas.toBuffer()));
+    // console.log(await loadImage(canvas.toBuffer()));
     return {
       mimetype: "image/webp",
       data: await sharp(canvas.toBuffer("image/png"))

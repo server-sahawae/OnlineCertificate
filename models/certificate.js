@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       origin: DataTypes.STRING,
       phone: DataTypes.STRING,
       status: DataTypes.STRING,
+      email: DataTypes.STRING,
       EventId: DataTypes.UUID,
       CertificateTemplateId: DataTypes.UUID,
       // fileType: DataTypes.STRING,

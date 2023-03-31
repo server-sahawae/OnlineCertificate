@@ -25,7 +25,7 @@ async function createQr(baseUrl, id, LogoId) {
   const stamp = await loadImage(await getPngBufferFromWebp(dataLogo.file));
   // console.log(stamp.);
   const backgroundCTX = canvas.getContext("2d");
-  console.log(stamp.width, stamp.height);
+  // console.log(stamp.width, stamp.height);
   const stampWidth = () => {
     if (stamp.width >= stamp.height) {
       return width;
@@ -41,7 +41,7 @@ async function createQr(baseUrl, id, LogoId) {
       return (height * stamp.height) / stamp.width;
     }
   };
-  console.log(stampWidth(), stampHeight());
+  // console.log(stampWidth(), stampHeight());
   backgroundCTX.globalAlpha = 0.5;
   backgroundCTX.drawImage(
     stamp,
