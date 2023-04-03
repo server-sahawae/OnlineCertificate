@@ -67,11 +67,11 @@ async function createQr(baseUrl, id, LogoId) {
   ctx.fillText(id, width / 2, width - 10, width);
   ctx.fillText(dataLogo.name.toUpperCase(), width / 2, 25, width - 10);
   backgroundCTX.drawImage(frontCanvas, 0, 0, width, width);
-  fs.writeFileSync(
-    "./QR.png",
-    canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, ""),
-    "base64"
-  );
+  // fs.writeFileSync(
+  //   "./QR.png",
+  //   canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, ""),
+  //   "base64"
+  // );
   return canvas.toDataURL("image/png");
   // END WORKING QRCODE WITHOUT LOGO
 }

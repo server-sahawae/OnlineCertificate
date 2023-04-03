@@ -56,11 +56,11 @@ async function createCertificate({
     certificate.textAlign = "center";
     certificate.fillText(status.toUpperCase(), 2970 / 2, statusPosition, 2970);
 
-    fs.writeFileSync(
-      "./test2.png",
-      canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, ""),
-      "base64"
-    );
+    // fs.writeFileSync(
+    //   "./test2.png",
+    //   canvas.toDataURL("image/png").replace(/^data:image\/png;base64,/, ""),
+    //   "base64"
+    // );
     // console.log(await loadImage(canvas.toBuffer()));
     return {
       mimetype: "image/webp",
