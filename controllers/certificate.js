@@ -61,15 +61,15 @@ module.exports = class Controller {
       if (!data.file) throw { name: CERTIFICATE_UNAVAILABLE };
       const { name, status, file } = data;
 
-      console.log(name);
-      res.setHeader(
-        "Content-Disposition",
-        "attachment; filename=" +
-          status.split(" ").join("_") +
-          "-" +
-          name.split(" ").join("_") +
-          ".png"
-      );
+      // console.log(name);
+      // res.setHeader(
+      //   "Content-Disposition",
+      //   "attachment; filename=" +
+      //     status.split(" ").join("_") +
+      //     "-" +
+      //     name.split(" ").join("_") +
+      //     ".png"
+      // );
       res.type("image/png").send(Buffer.from(file));
     } catch (error) {
       console.log(error);
@@ -166,51 +166,62 @@ module.exports = class Controller {
         console.log(`${i + 1}/${count} Certificate of ${el.name} is done`);
         console.log("================================");
       }
-      // const { id, name, CertificateTemplateId } = data;
-      // console.log(data);
-      // await asyncs.map(data, async (el) => {
-      //   console.log(el.name);
-      //   const certificate = await createCertificate({
-      //     id: el.id,
-      //     name: el.name,
-      //     status: el.status,
-      //     baseUrl,
-      //     CertificateTemplateId: el.CertificateTemplateId,
-      //   });
-      // await Certificate.update(
-      //   {
-      //     file: certificate.data,
-      //   },
-      //   { where: { id: el.id } }
-      // );
-      //   return `${el.name} `;
-      // });
-
-      // const result = await Promise.allSettled(
-      //   data.map(async (el) => {
-      //     try {
-      //       const certificate = await createCertificate({
-      //         id: el.id,
-      //         name: el.name,
-      //         status: el.status,
-      //         baseUrl,
-      //         CertificateTemplateId: el.CertificateTemplateId,
-      //       });
-      //       // await Certificate.update(
-      //       //   {
-      //       //     file: certificate.data,
-      //       //   },
-      //       //   { where: { id: el.id } }
-      //       // );
-      //       return `${el.name} `;
-      //     } catch (error) {
-      //       return error;
-      //     }
-      //   })
-      // );
-
-      // console.log(certificate);
       res.status(200).json(rows);
+    } catch (error) {
+      console.log(error);
+      res.send(error);
+      // next(error);
+    }
+  }
+
+  static async generateEmptyCertificatesByEventId(req, res, next) {
+    try {
+      console.log("generateEmptyCertificatesByEventId");
+      const { baseUrl, EventId, status } = req.body;
+      console.log(req.body);
+      let options;
+      if (status) {
+        options = { EventId, status };
+      } else options = { EventId };
+
+      const data = await Certificate.findAll({
+        where: { ...options, file: null },
+        attributes: ["id", "name", "status", "CertificateTemplateId"],
+        // limit: 30,
+      });
+      // console.log(count);
+      for (let i = 0; i < data.length; i++) {
+        const el = data[i];
+        console.log("================================");
+        console.log(
+          `${i + 1}/${data.length} Generating certificate of ${el.name}...`
+        );
+        const certificate = await createCertificate({
+          id: el.id,
+          name: el.name,
+          status: el.status,
+          baseUrl,
+          CertificateTemplateId: el.CertificateTemplateId,
+        });
+        console.log("================================");
+        console.log(
+          `${i + 1}/${data.length} Generated certificate of ${el.name}...`
+        );
+        console.log("================================");
+
+        await Certificate.update(
+          {
+            file: certificate.data,
+          },
+          { where: { id: el.id } }
+        );
+        console.log(
+          `${i + 1}/${data.length} Certificate of ${el.name} is done`
+        );
+        console.log("================================");
+      }
+
+      res.status(200).json(data);
     } catch (error) {
       console.log(error);
       res.send(error);
